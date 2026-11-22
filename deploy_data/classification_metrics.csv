@@ -1,0 +1,5 @@
+Model,Accuracy,Precision_Macro,Recall_Macro,F1_Macro,F1_Weighted,Best_Hyperparameters
+Decision_Tree,0.906,0.9065,0.9065,0.9065,0.906,"{'clf__max_depth': 15, 'clf__min_samples_split': 20}"
+kNN,0.757,0.7604,0.7577,0.7588,0.7577,"{'clf__n_neighbors': 9, 'clf__weights': 'distance'}"
+SVM_Linear,0.6044,0.6024,0.6071,0.5968,0.5945,{'clf__C': 1.0}
+Naive_Bayes,0.424,0.4432,0.4267,0.3678,0.3655,{'clf__var_smoothing': 1e-07}
