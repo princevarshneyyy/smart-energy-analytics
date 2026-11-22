@@ -119,3 +119,4 @@ Streamlit Community Cloud automatically puts inactive apps to sleep after severa
 ### Error 4: App crashes because MySQL is not installed
 - **Cause:** Unchecked DB connection calls throwing uncaught exceptions.
 - **Fix:** `dashboard/utils.py` handles database imports and connection attempts inside safe `try-except` blocks. If MySQL fails, it gracefully falls back to `deploy_data/` without crashing.
+

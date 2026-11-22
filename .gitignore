@@ -33,3 +33,4 @@ data/processed/*.sqlite
 # Keep deployment data tracked for Streamlit Community Cloud
 !deploy_data/
 !deploy_data/*
+
