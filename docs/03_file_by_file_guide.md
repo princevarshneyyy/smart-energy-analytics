@@ -1,0 +1,31 @@
+# File-by-File Technical Guide & Teacher Defense
+
+This document maps out every file in the repository, explaining its single purpose, exact inputs and outputs, key logic, and the exact one-liner to defend it before your lab instructor or external examiner.
+
+| File Path | Purpose | Inputs | Outputs | What to Tell the Teacher (One-Liner Defense) |
+| :--- | :--- | :--- | :--- | :--- |
+| `config.py` | Central configuration repository | Environment variables (`.env`) | Paths, thresholds, hyperparameters | *"Centralizes all file paths, database credentials, and random seeds so there are zero hard-coded magic values across the project."* |
+| `run_pipeline.py` | Master pipeline orchestrator | Numbered scripts in `src/` | End-to-end execution logs & artifacts | *"Executes all 9 pipeline steps sequentially, logging execution times and verifying system health idempotently."* |
+| `data/generate_synthetic_data.py` | Multi-consumer grid generator | Seed parameters from `config.py` | `data/raw/synthetic_energy_data.csv` | *"Generates 50 consumers across 6 cities over 2 years with realistic diurnal and seasonal curves, plus deliberate missing values and duplicates to give our cleaning pipeline genuine work."* |
+| `data/README_data.md` | Data documentation | None | Documentation file | *"Documents both the UCI benchmark and our multi-consumer dataset, with column definitions and download instructions."* |
+| `sql/01_create_database.sql` | Database schema initialization | MySQL connection | Database `smart_energy_dw` | *"Creates our UTF8mb4 analytical database for the smart energy warehouse."* |
+| `sql/02_create_star_schema.sql` | Star schema DDL | Database engine | Dimensions, Fact, and Results tables | *"Builds our Star Schema with surrogate primary keys, foreign keys, indexes, and a fact table with grain of 1 consumer per 1 hour."* |
+| `sql/03_olap_queries.sql` | Pure-SQL OLAP operations | Fact & Dimension tables | OLAP query result sets | *"Implements pure-SQL Roll-Up, Drill-Down, Slice, Dice, and CUBE/Pivot queries using standard GROUP BY and WITH ROLLUP syntax."* |
+| `sql/04_views.sql` | Analytical SQL views | Fact & Dimension tables | Relational views | *"Pre-aggregates commonly queried dimensions into high-performance views for dashboard acceleration."* |
+| `src/db_connection.py` | SQLAlchemy connection manager | `config.py` settings | Engine & active dialect | *"Manages database connections via SQLAlchemy, automatically falling back to embedded SQLite if a local MySQL instance is not running."* |
+| `src/01_data_integration.py` | Data integration & ingestion | Raw CSV / UCI files | `data/processed/integrated_energy_data.csv` | *"Consolidates raw readings with consumer metadata, geographic location, and weather conditions into a unified schema."* |
+| `src/02_preprocessing.py` | Data cleaning & quality audit | `integrated_energy_data.csv` | `cleaned_energy_data.csv` & audit report | *"Eliminates duplicate meter transmissions, coerces '?' strings, and performs domain-specific median imputation per consumer."* |
+| `src/03_feature_engineering.py` | Temporal feature extraction | `cleaned_energy_data.csv` | `featured_energy_data.csv` | *"Extracts calendar and diurnal features, computes historical lag and rolling stats, derives Low/Normal/High classes, and enforces zero data leakage."* |
+| `src/04_warehouse_etl.py` | Dimensional ETL loader | `featured_energy_data.csv` | Populated Star Schema in DB & Fact CSV | *"Idempotently populates dimension tables with surrogate keys and loads the Fact_Energy_Consumption table."* |
+| `src/05_olap_operations.py` | OLAP multidimensional analysis | Fact & Dimension tables | OLAP CSV tables & heatmap image | *"Executes Roll-up, Drill-down, Slice, Dice, and Pivot operations using both Pandas and SQL, generating cross-tabulation heatmaps."* |
+| `src/06_classification.py` | Supervised model training | `featured_energy_data.csv` | Trained `.joblib` models & metrics table | *"Trains Decision Tree, Naive Bayes, kNN, and SVM classifiers using chronological time-based splitting and GridSearchCV tuning."* |
+| `src/07_anomaly_detection.py` | Unsupervised anomaly detection | `featured_energy_data.csv` | `anomaly_detection_results.csv` & DB table | *"Detects unusual readings using IQR, Z-Score, and K-Means clustering computed per consumer, evaluated against known injected anomalies."* |
+| `src/08_model_evaluation.py` | Evaluation & visual analytics | Model predictions & anomaly flags | Confusion matrices & comparison charts | *"Calculates multi-class accuracy, precision, recall, and macro F1 scores, plotting styled confusion matrices and time-series alert graphs."* |
+| `src/09_export_arff.py` | WEKA ARFF dataset exporter | `featured_energy_data.csv` | `train.arff` and `test.arff` | *"Exports train and test ARFF files with strict attribute declarations and nominal target classes for replication in WEKA Explorer."* |
+| `dashboard/app.py` | Streamlit entrypoint | None | Web navigation interface | *"The interactive Streamlit dashboard entrypoint providing clean multi-page navigation across all analytics modules."* |
+| `dashboard/pages/1_Overview.py` | Executive overview page | Fact table | KPI cards & interactive trends | *"Visualizes system-level KPIs, daily/monthly consumption curves, and city-by-city energy distributions."* |
+| `dashboard/pages/2_OLAP_Explorer.py` | Interactive OLAP console | Fact & Dimension tables | Dynamic cube operations | *"Allows interactive slicing, dicing, rolling-up, and drilling-down across multiple dimensions in real-time."* |
+| `dashboard/pages/3_Classification.py` | Model diagnostics page | Evaluation metrics & saved plots | Model comparison leaderboard | *"Presents the classifier leaderboard, hyperparameter details, and confusion matrices for all 4 classification algorithms."* |
+| `dashboard/pages/4_Anomaly_Alerts.py` | Anomaly investigation console | Anomaly detection results | Interactive alert charts & tables | *"Highlights unusual smart meter readings requiring investigation, supporting method switching and consensus filtering."* |
+| `weka/WEKA_INSTRUCTIONS.md` | WEKA GUI walkthrough guide | ARFF datasets | Step-by-step instructions | *"Provides exact GUI instructions to load ARFF files, run J48, NaiveBayes, IBk, and SMO, and verify results against our Python models."* |
+

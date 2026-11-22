@@ -1,0 +1,5 @@
+Method,Total_Flags_Raised,Precision_vs_Injected,Recall_vs_Injected,F1_Score,Flag_Rate_Pct
+IQR Method,2414,0.877,0.7001,0.7786,1.2
+Z-Score Method,1934,0.9995,0.6392,0.7797,0.96
+K-Means Clustering,4032,0.1875,0.25,0.2143,2.0
+Consensus Voting (>=2),2043,0.9613,0.6495,0.7752,1.01

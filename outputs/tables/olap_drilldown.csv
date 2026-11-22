@@ -1,0 +1,17 @@
+year_number,city,consumer_type,total_energy_kwh,avg_voltage,carbon_emissions_kg
+2023,Gurugram,Industrial,389095.52,230.0,319058.32
+2023,Greater Noida,Industrial,168813.38,229.8,138426.97
+2023,Delhi,Commercial,161060.5,230.0,132069.6
+2023,Faridabad,Industrial,157627.59,230.0,129254.62
+2023,Noida,Industrial,153181.58,230.0,125608.9
+2023,Delhi,Industrial,95899.3,229.9,78637.42
+2023,Ghaziabad,Commercial,89778.97,230.1,73618.76
+2023,Faridabad,Commercial,78647.72,230.0,64491.13
+2023,Greater Noida,Commercial,52107.26,229.9,42727.95
+2023,Gurugram,Residential,43054.69,230.0,35304.83
+2023,Noida,Commercial,38761.73,230.1,31784.62
+2023,Delhi,Residential,31151.14,230.0,25543.93
+2023,Faridabad,Residential,19196.2,230.0,15740.88
+2023,Noida,Residential,13797.03,229.9,11313.56
+2023,Greater Noida,Residential,9700.14,230.0,7954.11
+2023,Ghaziabad,Residential,9648.15,230.0,7911.47
