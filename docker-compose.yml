@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # MySQL Star Schema Database Service
+  mysql_dw:
+    image: mysql:8.0
+    container_name: smart_energy_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: smart_energy_dw
+      MYSQL_USER: energy_user
+      MYSQL_PASSWORD: energy_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql/01_create_database.sql:/docker-entrypoint-initdb.d/01_create_database.sql
+      - ./sql/02_create_star_schema.sql:/docker-entrypoint-initdb.d/02_create_star_schema.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Streamlit Analytics Dashboard Service
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: smart_energy_dashboard
+    restart: unless-stopped
+    depends_on:
+      mysql_dw:
+        condition: service_healthy
+    environment:
+      DB_HOST: mysql_dw
+      DB_PORT: 3306
+      DB_USER: energy_user
+      DB_PASSWORD: energy_pass
+      DB_NAME: smart_energy_dw
+    ports:
+      - "8501:8501"
+
+volumes:
+  mysql_data:
