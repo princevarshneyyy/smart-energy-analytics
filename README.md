@@ -198,16 +198,3 @@ This means it can be hosted for free on Streamlit Community Cloud. See [DEPLOYME
 ## Academic Context
 
 This project was developed for the Data Mining and Warehousing Lab (course code 24B15CS313) at Jaypee Institute of Information Technology, Noida, Department of CSE.
-
-| Contributor | Enrollment No. |
-|---|---|
-| Mahima Show | 992401030099 |
-| Prince Varshney | 992401030109 |
-| Maitry Jain | 992401030406 |
-
-## References
-
-- Han, Kamber, Pei. *Data Mining: Concepts and Techniques.*
-- Kimball, Ross. *The Data Warehouse Toolkit.*
-- Witten, Frank, Hall, Pal. *Data Mining: Practical Machine Learning Tools and Techniques.*
-- [scikit-learn documentation](https://scikit-learn.org/) and [WEKA](https://www.cs.waikato.ac.nz/ml/weka/)
