@@ -7,7 +7,7 @@ An end-to-end analytics platform for electricity consumption data. It cleans raw
 [![MySQL](https://img.shields.io/badge/Warehouse-MySQL-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![scikit-learn](https://img.shields.io/badge/ML-scikit--learn-F7931E?logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
 
-**Live demo:** https://YOUR-APP-NAME.streamlit.app
+**Live demo:** (https://smart-energy-analytics-prince.streamlit.app/)
 
 ---
 
