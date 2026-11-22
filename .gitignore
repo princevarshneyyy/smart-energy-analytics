@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / ambient Python files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environment Variables & Local Secrets
+.env
+.env.local
+.streamlit/secrets.toml
+
+# Operating System & IDE metadata
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Raw Large Datasets (Kept local, reproducible via data/generate_synthetic_data.py)
+data/raw/
+*.zip
+*.tar.gz
+
+# Local SQLite databases (except deployment assets in deploy_data/)
+data/processed/*.sqlite
+*.sqlite3
+
+# Keep deployment data tracked for Streamlit Community Cloud
+!deploy_data/
+!deploy_data/*
