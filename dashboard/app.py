@@ -50,4 +50,4 @@ and data warehousing solution for electrical consumption intelligence across sma
 
 # System Status Check
 st.sidebar.success("✅ System Status: Active")
-st.sidebar.info("**Author:** 3rd-Year B.Tech CSE Student\n\n**Institution:** JIIT Noida")
+st.sidebar.info("**Built by:** Prince Varshney\n")
