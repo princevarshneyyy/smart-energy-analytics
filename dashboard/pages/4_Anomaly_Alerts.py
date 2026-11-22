@@ -6,8 +6,11 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from dashboard.utils import load_anomaly_data
+from dashboard.utils import load_anomaly_data, load_anomaly_summary, render_datasource_badge
 import config
+
+# Render active data source badge in sidebar
+render_datasource_badge()
 
 st.title("🚨 Anomaly Detection & Investigation Console")
 st.warning("⚠️ **Operational Notice:** Flagged records represent **'unusual readings that need investigation'**, NOT definitive proof of power theft or equipment failure.")
@@ -31,10 +34,23 @@ if not df_anom.empty:
         flag_col = "consensus_flag"
         df_anom["consensus_flag"] = (df_anom["anomaly_consensus_count"] >= 2).astype(int)
 
-    # Summary metrics
-    total_records = len(df_anom)
-    total_anomalies = df_anom[flag_col].sum()
-    pct_flagged = (total_anomalies / total_records) * 100
+    # Summary metrics (loads exact precomputed metrics if present in deploy mode, else computes dynamically)
+    summary_dict = load_anomaly_summary()
+    if summary_dict and "total_evaluated" in summary_dict:
+        total_records = summary_dict["total_evaluated"]
+        if method == "IQR Rule":
+            total_anomalies = summary_dict.get("iqr_flags", int(df_anom[flag_col].sum()))
+        elif method == "Z-Score Rule":
+            total_anomalies = summary_dict.get("zscore_flags", int(df_anom[flag_col].sum()))
+        elif method == "K-Means Distance Clustering":
+            total_anomalies = summary_dict.get("kmeans_flags", int(df_anom[flag_col].sum()))
+        else:
+            total_anomalies = summary_dict.get("consensus_flags", int(df_anom[flag_col].sum()))
+    else:
+        total_records = len(df_anom)
+        total_anomalies = int(df_anom[flag_col].sum())
+
+    pct_flagged = (total_anomalies / total_records) * 100 if total_records > 0 else 0.0
 
     c1, c2, c3 = st.columns(3)
     c1.metric("Total Readings Evaluated", f"{total_records:,}")

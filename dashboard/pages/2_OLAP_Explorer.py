@@ -5,7 +5,10 @@ Page 2: OLAP Explorer & Multidimensional Data Cube Analysis.
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from dashboard.utils import load_fact_data
+from dashboard.utils import load_fact_data, render_datasource_badge
+
+# Render active data source badge in sidebar
+render_datasource_badge()
 
 st.title("🧊 OLAP Data Cube Explorer")
 st.markdown("""

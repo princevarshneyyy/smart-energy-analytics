@@ -6,8 +6,11 @@ import streamlit as st
 import pandas as pd
 from PIL import Image
 from pathlib import Path
-from dashboard.utils import load_classification_metrics
+from dashboard.utils import load_classification_metrics, render_datasource_badge
 import config
+
+# Render active data source badge in sidebar
+render_datasource_badge()
 
 st.title("🎯 Supervised Consumption Classification")
 st.markdown("""

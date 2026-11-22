@@ -5,7 +5,10 @@ Page 1: Overview & Grid Performance KPIs.
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from dashboard.utils import load_fact_data, render_kpi_card
+from dashboard.utils import load_fact_data, render_kpi_card, render_datasource_badge
+
+# Render active data source badge in sidebar
+render_datasource_badge()
 
 st.title("📊 Energy Consumption Overview & Grid Trends")
 

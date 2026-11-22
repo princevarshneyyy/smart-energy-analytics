@@ -11,12 +11,17 @@ import streamlit as st
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE_DIR))
 
+from dashboard.utils import render_datasource_badge
+
 st.set_page_config(
     page_title="Smart Energy Analytics & Anomaly Detection",
     page_icon="⚡",
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# Render active data source badge in sidebar
+render_datasource_badge()
 
 st.title("⚡ Smart Energy Consumption Analytics & Anomaly Detection System")
 st.markdown("### *Data Mining and Warehousing Lab (24B15CS313) — JIIT Noida*")
@@ -35,6 +40,7 @@ and data warehousing solution for electrical consumption intelligence across sma
 ---
 #### 🏛️ Architecture Highlights:
 - **Star Schema Data Warehouse**: Centered around `Fact_Energy_Consumption` with surrogate-keyed dimensions (`Dim_Date`, `Dim_Time`, `Dim_Consumer`, `Dim_Location`, `Dim_Weather`).
+- **Dual-Mode Data Engine**: Seamlessly toggles between live MySQL cloud warehouses and lightweight exported offline replicas.
 - **Zero-Data-Leakage Classification**: Model inputs are strictly isolated from contemporaneous target values.
 - **Wording Standard**: Anomalies are flagged as *"unusual readings that need investigation"*, avoiding unverified claims of theft or equipment failure.
 - **WEKA Integration**: Pre-generated `.arff` files ready for comparative analysis in WEKA Explorer GUI.
@@ -45,4 +51,3 @@ and data warehousing solution for electrical consumption intelligence across sma
 # System Status Check
 st.sidebar.success("✅ System Status: Active")
 st.sidebar.info("**Author:** 3rd-Year B.Tech CSE Student\n\n**Institution:** JIIT Noida")
-
